@@ -1,0 +1,9 @@
+# python virtual environment
+playboxstore/
+
+# envoirnment variables
+.env
+
+# models
+*.h5
+

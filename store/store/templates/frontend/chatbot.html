@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot</title>
+    {% load static %}
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to bottom, #1a76d1, #fff);
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin: 20px auto;
+      }
+
+      .chat-header {
+        background: #1a76d1;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.5em;
+      }
+
+      .chat-body {
+        padding: 20px;
+      }
+
+      .chat-body form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-body label {
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        color: #333;
+      }
+
+      .chat-body input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        font-size: 1em;
+      }
+
+      .chat-body button {
+        background: #1a76d1;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background 0.3s ease;
+      }
+
+      .chat-body button:hover {
+        background: #155a9c;
+      }
+
+      .response-container {
+        margin-top: 20px;
+      }
+
+      .response {
+        background: #f1f1f1;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+        font-size: 1em;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'frontend/Navbar.html' %}
+    <div class="container">
+      <div class="chat-header">Chat with Us</div>
+      <div class="chat-body">
+        <form method="post" id="chat-form">
+          {% csrf_token %}
+          <label for="query">Ask a question:</label>
+          <input type="text" id="query" name="query" required />
+          <button type="submit">Submit</button>
+        </form>
+        <div id="response-container" class="response-container">
+          <div class="response">
+            <p>Welcome! How can I assist you today?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("chat-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const query = document.getElementById("query").value;
+          fetch("{% url 'chatbot' %}", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: JSON.stringify({ query: query }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const responseContainer =
+                document.getElementById("response-container");
+              responseContainer.innerHTML = `<div class="response"><p>${data.response}</p></div>`;
+            })
+            .catch((error) => console.error("Error:", error));
+        });
+    </script>
+  </body>
+</html>

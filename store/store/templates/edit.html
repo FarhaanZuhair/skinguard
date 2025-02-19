@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Edit Player</title>
+  </head>
+  <body>
+    <h1>Edit Player</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %} {{ pf.as_p }}
+      <button type="submit">Save Changes</button>
+    </form>
+    {%include 'menu.html' %}
+  </body>
+</html>

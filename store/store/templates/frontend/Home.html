@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - SkinGuard</title>
+    {% load static %}
+    <style>
+      /* Reset default styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Navbar Styling */
+      .navbar {
+        background: linear-gradient(to right, #1a76d1, #144a7a);
+        width: 100%;
+        padding: 15px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Logo */
+      .logo {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        padding: 0 20px;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .logo:hover {
+        transform: scale(1.1);
+      }
+
+      /* Navbar Links */
+      .nav-links {
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+      }
+
+      .nav-link {
+        color: white;
+        padding: 12px 20px;
+        margin: 0 10px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1em;
+        border: 2px solid transparent;
+        transition: all 0.3s ease-in-out;
+        border-radius: 5px;
+      }
+
+      .nav-link:hover {
+        background: white;
+        color: #1a76d1;
+        border: 2px solid white;
+        transform: scale(1.1);
+        box-shadow: 0 0 15px white;
+      }
+
+      .active {
+        background: white;
+        color: #1a76d1;
+        border: 2px solid white;
+      }
+
+      /* Share Button */
+      .share-button {
+        background: none;
+        border: 2px solid white;
+        color: white;
+        cursor: pointer;
+        font-size: 1.1em;
+        padding: 10px 15px;
+        margin-right: 20px;
+        transition: all 0.3s ease-in-out;
+        border-radius: 5px;
+      }
+
+      .share-button:hover {
+        background: white;
+        color: #1a76d1;
+        transform: scale(1.1);
+        box-shadow: 0 0 15px white;
+      }
+
+      /* Banner Section */
+      .banner {
+        margin-top: 80px;
+        height: 600px; /* Increased height */
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+      }
+
+      .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: opacity 1s ease-in-out;
+      }
+
+      .banner-buttons {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+        z-index: 3; /* Ensure buttons are above the box */
+      }
+
+      .banner-button {
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .banner-button:hover {
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .banner-button svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Centered Box */
+      .centered-box {
+        background: linear-gradient(to bottom, #1a76d1, #fff);
+        padding: 150px 300px; /* Increased padding */
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        top: 70%;
+        transform: translate(-80%, -70%);
+        /* Fixed height */
+        z-index: 2;
+      }
+
+      .centered-box h2 {
+        font-size: 3.5em;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        color: white;
+      }
+
+      .centered-box p {
+        font-size: 1em;
+        margin-bottom: 10px;
+        color: white;
+      }
+
+      .centered-box-button {
+        background: linear-gradient(to right, #ff9800, #ff5722);
+        border: none;
+        padding: 15px 120px;
+        font-size: 0.8em;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .centered-box-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 15px 120px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        background: linear-gradient(to bottom, #1a76d1, #fff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 50px;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+      }
+
+      /* Background Image Overlay */
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("{% static 'images/frontend image2.jpg' %}") no-repeat
+          center center/cover;
+        opacity: 0.2; /* Adjust opacity as needed */
+        z-index: 1;
+      }
+
+      .hero-content {
+        max-width: 100%;
+        color: white;
+        animation: fadeIn 1.5s ease-in-out;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Box for the welcome message */
+      .hero-box {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 150px 300px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(20px);
+      }
+
+      .hero h1 {
+        font-size: 2.8em;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero p {
+        font-size: 1.3em;
+        margin-bottom: 30px;
+      }
+
+      /* Diagnose Button */
+      .diagnose-button {
+        background: linear-gradient(to right, #ff9800, #ff5722);
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .diagnose-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.4);
+      }
+      .chat-section {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .chat-section h2 {
+        font-size: 2.5em;
+        color: #ff5722;
+      }
+
+      .chat-section p {
+        font-size: 1.2em;
+        color: #666;
+      }
+
+      .chat-button {
+        background: #ff5722;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 20px;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .chat-button:hover {
+        background: #ff9800;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2em;
+        }
+
+        .hero p {
+          font-size: 1.1em;
+        }
+
+        .diagnose-button {
+          font-size: 1em;
+          padding: 12px 25px;
+        }
+
+        .banner-nav-box {
+          padding: 20px;
+        }
+
+        .banner-nav-box h2 {
+          font-size: 1.5em;
+        }
+
+        .banner-nav-box p {
+          font-size: 1em;
+        }
+
+        .banner-nav-button {
+          font-size: 1em;
+          padding: 12px 25px;
+        }
+
+        .centered-box {
+          padding: 20px;
+        }
+
+        .centered-box h2 {
+          font-size: 1.5em;
+        }
+
+        .centered-box p {
+          font-size: 1em;
+        }
+
+        .centered-box-button {
+          font-size: 1em;
+          padding: 12px 25px;
+          white-space: nowrap; /* Prevent text from wrapping */
+        }
+        /* Add your styles here */
+        .chat-section {
+          background: rgba(255, 255, 255, 0.9);
+          padding: 40px;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+          text-align: center;
+          margin-top: 20px;
+        }
+
+        .chat-section h2 {
+          font-size: 2em;
+          color: #ff5722;
+        }
+
+        .chat-section p {
+          font-size: 1.2em;
+          color: #666;
+        }
+
+        .chat-section a {
+          background: #ff5722;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          text-align: center;
+          text-decoration: none;
+          font-size: 1em;
+          display: inline-block;
+          margin-top: 20px;
+        }
+
+        .chat-section a:hover {
+          background: #ff9800;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="App">
+      <!-- Navbar -->
+      {% include 'frontend/Navbar.html' %}
+
+      <!-- Banner Section -->
+      <section class="banner">
+        <div class="centered-box">
+          <h2 id="centered-box-header">Diagnose</h2>
+          <p id="centered-box-content">
+            Start your quick health assessment for peace of mind.
+          </p>
+          <button
+            class="centered-box-button"
+            id="centered-box-button"
+            onclick="navigateToPage()"
+          >
+            Go to Diagnose Page
+          </button>
+        </div>
+        <img
+          src="{% static 'images/frontend image1.jpg' %}"
+          alt="Banner 1"
+          class="banner-image"
+          style="opacity: 1"
+        />
+        <img
+          src="{% static 'images/frontend image2.jpg' %}"
+          alt="Banner 2"
+          class="banner-image"
+          style="opacity: 0"
+        />
+        <img
+          src="{% static 'images/hompage3.jpg' %}"
+          alt="Banner 3"
+          class="banner-image"
+          style="opacity: 0"
+        />
+        <div class="banner-buttons">
+          <button class="banner-button" onclick="prevImage()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+          <button class="banner-button" onclick="nextImage()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-box">
+            <h1>Welcome to SkinGuard</h1>
+            <p>Start your quick health assessment for peace of mind.</p>
+            <button class="diagnose-button" onclick="startDiagnosis()">
+              Start Diagnosis
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="chat-section">
+        <h2>Need Help?</h2>
+        <p>Chat with us to get answers to your queries.</p>
+        <a href="{% url 'chatbot' %}">Chat with Us</a>
+      </div>
+    </div>
+
+    <script>
+      let currentImageIndex = 0;
+      const images = document.querySelectorAll(".banner-image");
+      const totalImages = images.length;
+      const centeredBoxHeader = document.getElementById("centered-box-header");
+      const centeredBoxContent = document.getElementById(
+        "centered-box-content"
+      );
+      const centeredBoxButton = document.getElementById("centered-box-button");
+
+      function showImage(index) {
+        images.forEach((img, i) => {
+          img.style.opacity = i === index ? "1" : "0";
+        });
+        updateCenteredBox(index);
+      }
+
+      function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % totalImages;
+        showImage(currentImageIndex);
+      }
+
+      function prevImage() {
+        currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+        showImage(currentImageIndex);
+      }
+
+      function updateCenteredBox(index) {
+        switch (index) {
+          case 0:
+            centeredBoxHeader.innerText = "Diagnose";
+            centeredBoxContent.innerText =
+              "Start your quick health assessment for peace of mind.";
+            centeredBoxButton.innerText = "Diagnose Now";
+            centeredBoxButton.onclick = () =>
+              (window.location.href = "/diagnose");
+            break;
+          case 1:
+            centeredBoxHeader.innerText = "About";
+            centeredBoxContent.innerText =
+              "Learn more about our mission and values.";
+            centeredBoxButton.innerText = "About";
+            centeredBoxButton.onclick = () => (window.location.href = "/about");
+            break;
+          case 2:
+            centeredBoxHeader.innerText = "Contact Us";
+            centeredBoxContent.innerText =
+              "Get in touch with us for any queries or support.";
+            centeredBoxButton.innerText = "Contact Us";
+            centeredBoxButton.onclick = () =>
+              (window.location.href = "/contact");
+            break;
+        }
+      }
+
+      function startDiagnosis() {
+        window.location.href = "/diagnose";
+      }
+
+      function handleShareClick() {
+        alert("Share button clicked!");
+      }
+
+      // Auto-switch images every 5 seconds
+      setInterval(nextImage, 5000);
+
+      // Initial update for the centered box
+      updateCenteredBox(currentImageIndex);
+    </script>
+  </body>
+</html>

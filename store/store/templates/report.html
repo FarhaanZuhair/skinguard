@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 60%;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        text-align: center;
+        border: 1px solid #007acc;
+        transition: box-shadow 0.3s, transform 0.3s;
+      }
+      .container:hover {
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+        transform: translateY(-5px);
+      }
+      h1 {
+        color: #007acc;
+        margin-bottom: 20px;
+      }
+      h2 {
+        color: #007acc;
+        margin-bottom: 10px;
+      }
+      h3 {
+        color: #007acc;
+        margin-bottom: 20px;
+      }
+      .image-container {
+        margin: 20px 0;
+      }
+      .image-container img {
+        width: 150px;
+        border-radius: 4px;
+        border: 2px solid #007acc;
+        transition: transform 0.3s;
+      }
+      .image-container img:hover {
+        transform: scale(1.1);
+      }
+      .menu {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Patient Report</h1>
+      <h1>{{element.name}}</h1>
+      <h3>Age:{{element.age}}</h3>
+      <h3>Address: {{element.address}}</h3>
+      <div class="image-container">
+        <h3>Disease Image</h3>
+        <img src="{{element.disease_pic.url}}" style="width: 150px" />
+      </div>
+      <div class="menu">{% include 'menu.html' %}</div>
+    </div>
+  </body>
+</html>

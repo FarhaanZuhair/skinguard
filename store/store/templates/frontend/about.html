@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Diseases</title>
+    {% load static %}
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom, #1a76d1, #fff);
+      }
+
+      .about-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+      }
+      .about-box {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 60px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 70%;
+        max-width: 800px;
+      }
+      .diagnose-options {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+      }
+      .diagnose-option {
+        text-decoration: none;
+        width: 45%;
+        perspective: 1000px;
+      }
+      .card {
+        width: 100%;
+        height: 220px;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+      }
+      .card:hover {
+        transform: rotateY(180deg);
+      }
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        text-align: center;
+        padding: 20px;
+        color: white;
+        font-weight: bold;
+        background: url("{% static 'images/m13.jpeg' %}") center/cover;
+      }
+
+      .card-back {
+        background: rgba(0, 0, 0, 0.7);
+        transform: rotateY(180deg);
+      }
+      .about-details-page {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 40px;
+        border-radius: 8px;
+        background: url("{% static 'images/frontend image2.jpg' %}")
+          center/cover;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        opacity: 0.9;
+        transition: transform 0.3s ease-in-out;
+      }
+      .about-details-page:hover {
+        transform: scale(1.03);
+      }
+      h1,
+      h2,
+      h3 {
+        color: #fff;
+      }
+      p,
+      li {
+        font-size: 1.1rem;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'frontend/navbar.html' %}
+    <div class="about-page">
+      <div class="about-box">
+        <h1>Know More About</h1>
+        <div class="diagnose-options">
+          <a href="#monkeypox" class="diagnose-option">
+            <div class="card">
+              <div class="card-front">Monkeypox</div>
+              <div class="card-back">
+                Symptoms: Fever, Rash, Swollen Lymph Nodes
+              </div>
+            </div>
+          </a>
+          <a href="#skincancer" class="diagnose-option">
+            <div class="card">
+              <div class="card-front">Skin Cancer</div>
+              <div class="card-back">Early Detection is Crucial</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>About Diseases</title>
+        {% load static %}
+
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #1a76d1, #fff);
+          }
+          .about-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+          }
+          .about-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 70%;
+            max-width: 800px;
+          }
+          .diagnose-options {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+          }
+          .diagnose-option {
+            text-decoration: none;
+            width: 45%;
+            perspective: 1000px;
+          }
+          .card {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+          }
+          .card:hover {
+            transform: rotateY(180deg);
+          }
+          .card-front,
+          .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            text-align: center;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            background: url("{% static 'images/m13.jpeg' %}") center/cover;
+          }
+          .card-back {
+            background: rgba(0, 0, 0, 0.7);
+            transform: rotateY(180deg);
+          }
+          .about-details-page {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px;
+            border-radius: 8px;
+            background: url("{% static 'images/frontend image2.jpg' %}")
+              center/cover;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0.9;
+            transition: transform 0.3s ease-in-out;
+          }
+          .about-details-page:hover {
+            transform: scale(1.03);
+          }
+          h1,
+          h2,
+          h3 {
+            color: #fff;
+          }
+          p,
+          li {
+            font-size: 1.1rem;
+            color: #fff;
+          }
+        </style>
+      </head>
+      <body>
+        {% include 'frontend/navbar.html' %}
+        <div class="about-page">
+          <div class="about-box">
+            <h1>Know More About</h1>
+            <div class="diagnose-options">
+              <a href="#monkeypox" class="diagnose-option">
+                <div class="card">
+                  <div class="card-front">Monkeypox</div>
+                  <div class="card-back">
+                    Symptoms: Fever, Rash, Swollen Lymph Nodes
+                  </div>
+                </div>
+              </a>
+              <a href="#skincancer" class="diagnose-option">
+                <div class="card">
+                  <div class="card-front">Skin Cancer</div>
+                  <div class="card-back">Early Detection is Crucial</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="about-details-page" id="monkeypox">
+          <div>
+            <h2>What is Monkeypox?</h2>
+            <p>
+              Monkeypox is a rare viral disease that is part of the
+              Orthopoxvirus genus, which also includes smallpox. First
+              identified in 1958, monkeypox outbreaks primarily occur in Central
+              and West Africa.
+            </p>
+            <h3>Symptoms</h3>
+            <ul>
+              <li>Fever and chills</li>
+              <li>Headaches and muscle aches</li>
+              <li>Swollen lymph nodes</li>
+              <li>Fatigue</li>
+              <li>Rash that can develop into blisters</li>
+            </ul>
+            <h3>Transmission</h3>
+            <p>
+              Monkeypox is transmitted through direct contact with bodily
+              fluids, lesions, or respiratory droplets of infected individuals
+              or animals. The disease can also spread through contaminated
+              materials.
+            </p>
+            <h3>Treatment</h3>
+            <p>
+              While there is no specific treatment for monkeypox, antiviral
+              medications like tecovirimat may be effective. Treatment mainly
+              focuses on alleviating symptoms and preventing complications.
+            </p>
+            <h3>Prevention</h3>
+            <p>
+              Preventive measures include avoiding contact with infected
+              individuals and animals, practicing good hygiene, and using
+              protective equipment when caring for infected patients.
+              Vaccination against smallpox may provide cross-protection.
+            </p>
+            <h3>Recent Outbreaks</h3>
+            <p>
+              Recent outbreaks outside Africa have raised public health
+              concerns. Global health organizations are closely monitoring the
+              situation and emphasizing the importance of awareness and
+              preparedness.
+            </p>
+          </div>
+        </div>
+        <div class="about-details-page" id="skincancer">
+          <div>
+            <h2>What is Skin Cancer?</h2>
+            <p>
+              Skin cancer is the most common type of cancer in the United
+              States. It occurs when skin cells begin to grow uncontrollably,
+              often due to UV radiation from the sun or tanning beds.
+            </p>
+            <h3>Types of Skin Cancer</h3>
+            <ul>
+              <li>
+                <strong>Basal Cell Carcinoma:</strong> The most common form of
+                skin cancer, usually appearing as a small, shiny bump or sore
+                that doesn’t heal.
+              </li>
+              <li>
+                <strong>Squamous Cell Carcinoma:</strong> This type appears as a
+                firm, red nodule or flat sore with a scaly, crusted surface. It
+                can spread if not treated.
+              </li>
+              <li>
+                <strong>Melanoma:</strong> The most serious type, characterized
+                by changes in existing moles or the emergence of new moles.
+                Early detection is crucial for survival.
+              </li>
+            </ul>
+            <h3>Symptoms</h3>
+            <p>
+              Look for new growths, moles that change color or shape, or sores
+              that don’t heal. Regular self-examinations are important for early
+              detection.
+            </p>
+            <h3>Prevention</h3>
+            <p>
+              Reduce your risk by seeking shade, wearing protective clothing,
+              using sunscreen with a high SPF, and avoiding tanning beds.
+              Regular dermatological check-ups are also advisable.
+            </p>
+            <h3>Importance of Early Detection</h3>
+            <p>
+              Early detection significantly increases the chances of successful
+              treatment. Be vigilant about skin changes and consult a healthcare
+              provider for any concerns.
+            </p>
+          </div>
+        </div>
+      </body>
+    </html>
+  </body>
+</html>

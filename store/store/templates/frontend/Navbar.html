@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar</title>
+    <style>
+      /* Reset default margin and padding */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background-color: rgb(26, 118, 209); /* Deep blue */
+        width: 100%;
+        padding: 15px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        border-bottom: 3px solid white;
+      }
+
+      /* Navbar logo */
+      .logo {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        padding: 0 20px;
+      }
+
+      /* Navbar links */
+      .nav-links {
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+      }
+
+      .nav-link {
+        color: white;
+        padding: 12px 20px;
+        margin: 0 10px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.1em;
+        border: 2px solid transparent;
+        transition: all 0.3s ease-in-out;
+        border-radius: 5px;
+      }
+
+      .nav-link:hover {
+        background-color: white;
+        color: rgb(26, 118, 209);
+        border: 2px solid white;
+        transform: scale(1.1);
+        box-shadow: 0 0 15px white;
+      }
+
+      .active {
+        background-color: white;
+        color: rgb(26, 118, 209);
+        border: 2px solid white;
+      }
+
+      /* Share button */
+      .share-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.1em;
+        color: white;
+        padding: 12px 20px;
+        transition: all 0.3s ease-in-out;
+        border-radius: 5px;
+      }
+
+      .share-button:hover {
+        background-color: white;
+        color: rgb(26, 118, 209);
+        transform: scale(1.1);
+        box-shadow: 0 0 15px white;
+      }
+      /* Add this to your existing CSS */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-links {
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .auth-button {
+        background: none;
+        border: 2px solid white;
+        color: white;
+        cursor: pointer;
+        font-size: 1.1em;
+        padding: 10px 15px;
+        margin-right: 20px;
+        transition: all 0.3s ease-in-out;
+        border-radius: 5px;
+        text-decoration: none;
+      }
+
+      .auth-button:hover {
+        background: white;
+        color: #1a76d1;
+        transform: scale(1.1);
+        box-shadow: 0 0 15px white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="App">
+      <nav class="navbar">
+        <a href="/home" class="logo">SkinGuard</a>
+        <div class="nav-links">
+          <a href="/home" class="nav-link active">Home</a>
+          <a href="/about" class="nav-link">About</a>
+          <a href="/diagnose" class="nav-link">Diagnose</a>
+          <a href="/contact" class="nav-link">Contact</a>
+          <button class="share-button" onclick="handleShareClick()">
+            Share
+          </button>
+        </div>
+        <div class="auth-buttons">
+          <a href="/login" class="auth-button">Login</a>
+          <a href="/signup" class="auth-button">Sign Up</a>
+        </div>
+      </nav>
+    </div>
+
+    <script>
+      function handleShareClick() {
+        alert("Share button clicked!");
+      }
+    </script>
+  </body>
+</html>

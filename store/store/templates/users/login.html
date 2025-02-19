@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+    {% load static %}
+    <style>
+      /* Reset default styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to bottom, #1a76d1, #fff),
+          url("{% static 'images/frontend image2.jpg' %}") no-repeat center
+            center/cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .login-container {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        width: 300px;
+      }
+
+      .login-container h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        color: white;
+      }
+
+      .login-container label {
+        display: block;
+        font-size: 1em;
+        margin-bottom: 5px;
+        color: white;
+        text-align: left;
+      }
+
+      .login-container input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-container button {
+        background: linear-gradient(to right, #ff9800, #ff5722);
+        border: none;
+        padding: 10px 20px;
+        font-size: 1em;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .login-container button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      .error-message {
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'frontend/Navbar.html' %}
+    <div class="login-container">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Login Page</h1>
+        <p><label>Username:</label><input type="text" name="username" /></p>
+        <p><label>Password:</label><input type="password" name="password" /></p>
+        <button type="submit">Log In</button>
+        <p>{% if user %} Welcome {{ user.username }} {% endif %}</p>
+        <p class="error-message">
+          {% if error_message %} {{ error_message }} {% endif %}
+        </p>
+      </form>
+    </div>
+  </body>
+</html>

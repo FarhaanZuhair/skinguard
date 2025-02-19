@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8ff;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      h1 {
+        text-align: center;
+        color: #007acc;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #007acc;
+        color: white;
+      }
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      .btn {
+        display: inline-block;
+        padding: 8px 16px;
+        margin: 4px 2px;
+        border: none;
+        border-radius: 4px;
+        background-color: #007acc;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background-color 0.3s;
+      }
+      .btn:hover {
+        background-color: #005f99;
+      }
+      .image-container {
+        text-align: center;
+      }
+      .image-container img {
+        width: 40px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Patient List</h1>
+
+      <table>
+        <tr>
+          <td>Name</td>
+          <td>Age</td>
+          <td>Adress</td>
+          <td>disease</td>
+          <td>report</td>
+        </tr>
+        {% for obj in form %}
+        <tr>
+          <td>{{ obj.name }}</td>
+          <td>{{ obj.age }}</td>
+          <td>{{ obj.address }}</td>
+          <td class="image-container">
+            <a href="{%url 'edit1'  obj.id%}">edit</a>/<a
+              href="{%url 'delete1'  obj.id%}"
+              >delete</a
+            >
+          </td>
+          <td>
+            {% if obj.disease_pic %}
+            <img src="{{obj.disease_pic.url}}" style="width: 100px" />
+            {% else %} No image {% endif %}
+          </td>
+          <td><a href="{%url 'report'  obj.id%}" class="btn">report</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+      <h3>{%include 'menu.html'%}</h3>
+    </div>
+  </body>
+</html>

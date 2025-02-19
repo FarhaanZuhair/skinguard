@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>Visited {{ count }} times and recent visit player is:</h3>
+    {% for obj1 in recent_player %}
+    <h1>Name: {{ obj1.name }}</h1>
+    {% endfor %}
+
+    <div
+      style="
+        border: 4px;
+        display: flex;
+        border-style: solid;
+        padding: 10px;
+        background-color: rgb(236, 242, 245);
+        justify-content: space-between;
+        align-items: center;
+      "
+    >
+      <table>
+        <tr>
+          <td>Name</td>
+          <td>Club</td>
+          <td>Position</td>
+          <td>Edit/Delete</td>
+        </tr>
+        {%for obj1 in a1%}
+        <tr>
+          <td><h1>Name: {{obj1.name}}</h1></td>
+          <td><h2>Club: {{obj1.club}}</h2></td>
+          <td><h3>Position: {{obj1.position}}</h3></td>
+          <td><h3>Preclub:{{obj1.fav_club.preclub}}</h3></td>
+          <td>
+            <a href="{%url 'edit'  obj1.id%}">edit</a>/<a
+              href="{%url 'delete'  obj1.id%}"
+              >delete</a
+            >
+          </td>
+          <td>
+            <img src="{{obj1.poster.url}}" style="width: 40px" />
+          </td>
+        </tr>
+        {%endfor%}
+      </table>
+
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} {{ pf.as_p }}
+        <button type="submit">submit</button>
+      </form>
+      {% block content %} {% endblock content %} {% block content1 %}
+      <h1></h1>
+      {% endblock content1 %}
+    </div>
+    <h3>{%include 'menu.html'%}</h3>
+  </body>
+</html>
