@@ -5,5 +5,5 @@ playboxstore/
 .env
 
 # models
-*.h5
+# *.h5
 
