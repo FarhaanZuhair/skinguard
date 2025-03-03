@@ -53,13 +53,14 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-
+import os
 ROOT_URLCONF = "store.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'store/templates'],
+        # 'DIRS': [os.path.join(BASE_DIR, 'store/templates')],
+        "DIRS": [BASE_DIR / 'store/templates',],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -121,16 +122,18 @@ USE_I18N = True
 USE_TZ = True
 
 
+import os
+from pathlib import Path
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-import os
-from pathlib import Path
+
+# Add this line to set the STATIC_ROOT
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 MEDIA_URL = "media/"

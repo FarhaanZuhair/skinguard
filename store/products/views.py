@@ -14,6 +14,8 @@ from store.model_loader import predict_disease
 import os
 from django.conf import settings
 
+
+
 def disease_detection(request):
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
@@ -24,12 +26,55 @@ def disease_detection(request):
                 for chunk in image.chunks():
                     destination.write(chunk)
 
-            predicted_class, confidence = predict_disease(image_path)
-            return JsonResponse({'predicted_class': predicted_class, 'confidence': confidence})
+            try:
+                predicted_class, confidence = predict_disease(image_path)
+                disease_detected = predicted_class.lower() == 'disease'  # Adjust this condition based on your class names
+                return JsonResponse({
+                    'predicted_class': predicted_class,
+                    'confidence': confidence,
+                    'disease_detected': disease_detected
+                })
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
 
     else:
         form = ImageUploadForm()
     return render(request, 'model/disease_detection.html', {'form': form})
+ 
+def report(request, pk):
+    # Assuming you have a model to fetch the report details
+    report_details = get_object_or_404(model, pk=pk)  # Replace ReportModel with the actual model name
+    diagnosis_result = None
+
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.cleaned_data['image']
+            image_path = os.path.join(settings.MEDIA_ROOT, image.name)
+            with open(image_path, 'wb+') as destination:
+                for chunk in image.chunks():
+                    destination.write(chunk)
+
+            try:
+                predicted_class, confidence = predict_disease(image_path)
+                diagnosis_result = {
+                    'predicted_class': predicted_class,
+                    'confidence': confidence,
+                    'disease_detected': predicted_class.lower() == 'disease'
+                }
+            except Exception as e:
+                diagnosis_result = {'error': str(e)}
+
+    else:
+        form = ImageUploadForm()
+
+    context = {
+        'report_details': report_details,
+        'form': form,
+        'diagnosis_result': diagnosis_result
+    }
+    return render(request, 'report.html', context)
+
 
 genai.configure(api_key="AIzaSyDepoMb98fI91dnQFBpUABAYs1WQLgjA8c")
 
@@ -153,13 +198,15 @@ def delete1(request,pk):
     instance.delete()
     obj=patient.objects.all()
     return render(request,'patientlist.html',{'form':obj})
-def report(request,pk):
-    instance_rep = get_object_or_404(patient,pk=pk)
-    # obj=patient.objects.filter(pk=pk)
-    return render(request,'report.html',{'element':instance_rep})
+# def report(request,pk):
+#     instance_rep = get_object_or_404(patient,pk=pk)
+#     # obj=patient.objects.filter(pk=pk)
+#     return render(request,'report.html',{'element':instance_rep})
 
 def home(request):
     return render(request, 'frontend/home.html')
 def about(request):
     return render(request, 'frontend/about.html')
 
+def yourtemplate(request):
+    return render(request, 'frontend/your_templates.html')
