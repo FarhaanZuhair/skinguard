@@ -21,8 +21,8 @@ urlpatterns = [
     path('chatbot/', views.chatbot, name='chatbot'),  # Updated line
     path('disease_detection/', views.disease_detection, name='disease_detection'),
     path('yourtemplate/', views.yourtemplate, name='yourtemplate'),
-
-
+    path('index/',views.index,name='index'),
+    
 
 ]
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

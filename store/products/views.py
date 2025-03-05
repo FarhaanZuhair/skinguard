@@ -210,3 +210,5 @@ def about(request):
 
 def yourtemplate(request):
     return render(request, 'frontend/your_templates.html')
+def index(request):
+    return render(request,'zakku/index.html')
