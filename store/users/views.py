@@ -1,10 +1,12 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from .models import Diagnosis
 from .forms import DiagnosisForm
 import random
+import os
+from products.models import YourModel  # Replace 'your_model_module' with the actual module name
 
 
 
@@ -88,7 +90,13 @@ def diagnose(request):
 
 @login_required
 def view_diagnosis(request, pk):
-    diagnosis = Diagnosis.objects.get(pk=pk)
-    diagnosis_result = random.choice(["No disease detected", "Disease detected"])
+    diagnosis = get_object_or_404(Diagnosis, pk=pk)
+
+    if diagnosis.disease_image:
+        # Process the uploaded image
+        predicted_class, confidence = YourModel.process_image(diagnosis.disease_image.path)
+        diagnosis_result = f"{predicted_class} with {confidence:.2f}% confidence"
+    else:
+        diagnosis_result = "No image uploaded"
 
     return render(request, 'users/view_diagnosis.html', {'diagnosis': diagnosis, 'diagnosis_result': diagnosis_result})

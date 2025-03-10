@@ -3,13 +3,17 @@ from users.models import UserProfile
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+import tensorflow as tf
+import numpy as np
+import os
+from django.conf import settings
+
 
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
-
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
@@ -51,4 +55,27 @@ class Playerinfo(models.Model):
     def __str__(self):
         return self.name
     
-        
+class YourModel(models.Model):
+    # Your model fields
+
+    @staticmethod
+    def process_image(image):
+        # Load the trained model
+        model_path = os.path.join(settings.BASE_DIR, 'model', 'Mpox_Efficientnet_Model_New.h5')
+        model = tf.keras.models.load_model(model_path)
+
+        # Load and preprocess the image
+        img = tf.keras.preprocessing.image.load_img(image, target_size=(300, 300))
+        img_array = tf.keras.preprocessing.image.img_to_array(img)
+        img_array = np.expand_dims(img_array, 0)  # Create a batch
+
+        # Make predictions
+        predictions = model.predict(img_array)
+        score = tf.nn.softmax(predictions[0])
+
+        # Assuming you have a list of class names
+        class_names = ['Monkeypox detected','Monkeypox not detected']
+        predicted_class = class_names[np.argmax(score)]
+        confidence = 100 * np.max(score)
+
+        return predicted_class, confidence

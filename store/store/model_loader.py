@@ -3,14 +3,14 @@ import os
 from django.conf import settings
 
 # Load the trained model
-model_path = os.path.join(settings.BASE_DIR, 'model', 'model.h5')
+model_path = os.path.join(settings.BASE_DIR, 'model', 'Mpox_Efficientnet_Model_New.h5')
 model = tf.keras.models.load_model(model_path)
 
 def predict_disease(image_path):
     # Load and preprocess the image
     img = tf.keras.preprocessing.image.load_img(image_path, target_size=(224, 224))
     img_array = tf.keras.preprocessing.image.img_to_array(img)
-    img_array = tf.expand_dims(img_array, 0)  # Create a batch
+    img_array = tf.expand_dims(img_array, 0)  # Create a batchFront end.
 
     # Make predictions
     predictions = model.predict(img_array)
