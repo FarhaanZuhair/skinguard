@@ -79,3 +79,28 @@ class YourModel(models.Model):
         confidence = 100 * np.max(score)
 
         return predicted_class, confidence
+    
+    @staticmethod
+    def process_skinimage(image):
+        # Load the trained model
+        model_path = os.path.join(settings.BASE_DIR, 'model', 'skin_cancer_detection_model_enb5.h5')
+        model = tf.keras.models.load_model(model_path)
+
+        # Load and preprocess the image
+        img = tf.keras.preprocessing.image.load_img(image, target_size=( 456, 456))
+        img_array = tf.keras.preprocessing.image.img_to_array(img)
+        img_array = np.expand_dims(img_array, 0)  # Create a batch
+
+        # Make predictions
+        predictions = model.predict(img_array)
+        score = tf.nn.softmax(predictions[0])
+
+        # Assuming you have a list of class names
+        class_names = ['skin cancer detected','skin cancer not detected']
+        predicted_class = class_names[np.argmax(score)]
+        confidence = 100 * np.max(score)
+
+        return predicted_class, confidence
+    
+    
+    

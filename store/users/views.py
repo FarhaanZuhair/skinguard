@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
-from .models import Diagnosis
-from .forms import DiagnosisForm
+from .models import Diagnosis, SkinDiagnosis
+from .forms import DiagnosisForm, SkinDiagnosisForm
 import random
 import os
 from products.models import YourModel  # Replace 'your_model_module' with the actual module name
@@ -100,3 +100,28 @@ def view_diagnosis(request, pk):
         diagnosis_result = "No image uploaded"
 
     return render(request, 'users/view_diagnosis.html', {'diagnosis': diagnosis, 'diagnosis_result': diagnosis_result})
+@login_required
+def skin_cancer_diagnose(request):
+    if request.method == 'POST':
+        form = SkinDiagnosisForm(request.POST, request.FILES)
+        if form.is_valid():
+            diagnosis = form.save(commit=False)
+            diagnosis.user = request.user
+            diagnosis.save()
+            return redirect('view_skin_diagnosis', pk=diagnosis.pk)
+    else:
+        form = SkinDiagnosisForm()
+    return render(request, 'users/skin_cancer_diagnose.html', {'form': form})
+
+@login_required
+def view_skin_diagnosis(request, pk):
+    diagnosis = get_object_or_404(SkinDiagnosis, pk=pk)
+
+    if diagnosis.disease_image:
+        # Process the uploaded image
+        predicted_class, confidence = YourModel.process_skinimage(diagnosis.disease_image.path)
+        diagnosis_result = f"{predicted_class} with {confidence:.2f}% confidence"
+    else:
+        diagnosis_result = "No image uploaded"
+
+    return render(request, 'users/view_skin_diagnosis.html', {'diagnosis': diagnosis, 'diagnosis_result': diagnosis_result})

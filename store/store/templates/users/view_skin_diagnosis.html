@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skin Cancer Diagnosis Report</title>
+    {% load static %}
+    <style>
+      /* Reset default styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to right, #ff9800, #ff5722);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        width: 80%;
+        max-width: 800px;
+        text-align: center;
+        overflow-y: auto;
+        max-height: 90vh;
+        margin-top: 20px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .header img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        font-size: 2.5em;
+        color: #ff5722;
+        text-align: right;
+      }
+
+      .report-section {
+        margin-bottom: 20px;
+      }
+
+      .report-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        color: #ff5722;
+      }
+
+      .report-section p {
+        font-size: 1em;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .report-section img {
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .diagnosis-result {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        color: white;
+      }
+
+      .diagnosis-result.no-disease {
+        background-color: green;
+      }
+
+      .diagnosis-result.disease {
+        background-color: red;
+      }
+
+      .back-button {
+        background: #ff5722;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font-size: 1em;
+        margin-top: 20px;
+        display: inline-block;
+      }
+
+      .back-button:hover {
+        background: #ff9800;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'frontend/Navbar.html' %}
+    <div class="container">
+      <div class="header">
+        {% if diagnosis.user.userprofile.profile_pic %}
+        <img
+          src="{{ diagnosis.user.userprofile.profile_pic.url }}"
+          alt="Profile Picture"
+        />
+        {% else %}
+        <img
+          src="{% static 'images/frontend image1.jpg' %}"
+          alt="Default Profile Picture"
+        />
+        {% endif %}
+        <h1>{{ diagnosis.user.username }}</h1>
+      </div>
+      <div class="report-section">
+        <h2>Diagnosis Report</h2>
+        <p><strong>Date:</strong> {{ diagnosis.report_date }}</p>
+        <p><strong>First Name:</strong> {{ diagnosis.first_name }}</p>
+        <p><strong>Last Name:</strong> {{ diagnosis.last_name }}</p>
+        <p><strong>Address:</strong> {{ diagnosis.address }}</p>
+        <p><strong>Symptoms:</strong> {{ diagnosis.symptoms }}</p>
+        <p><strong>Disease Image:</strong></p>
+        <img src="{{ diagnosis.disease_image.url }}" alt="Disease Image" />
+      </div>
+      <div
+        class="diagnosis-result {% if 'not detected' in diagnosis_result %}no-disease{% else %}disease{% endif %}"
+      >
+        {{ diagnosis_result }}
+      </div>
+      <a href="{% url 'profilepage' diagnosis.user.pk %}" class="back-button"
+        >Go Back</a
+      >
+    </div>
+  </body>
+</html>
