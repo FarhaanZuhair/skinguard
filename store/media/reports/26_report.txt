@@ -1,0 +1,9 @@
+
+    Diagnosis Report
+    ----------------
+    Name: Farhaan ghg
+    Address: vjhvh
+    Symptoms: vmbhnb
+    Diagnosis Result: malignant detected with 72.31% confidence
+    Report Date: 2025-03-13
+    
