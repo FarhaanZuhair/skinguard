@@ -13,6 +13,7 @@ from .forms import ImageUploadForm
 from store.model_loader import predict_disease
 import os
 from django.conf import settings
+from .models import YourModel  # Replace with your actual model
 
 
 
