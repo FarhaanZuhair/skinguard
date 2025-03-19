@@ -145,3 +145,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+PINATA_API_KEY = 'ac0157a8c7f1c07366a4'
+PINATA_SECRET_API_KEY = 'c03beb501244d3f6485c3cea26b50e6341638c167b8af0eb32cce4cbb6df910b'

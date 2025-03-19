@@ -1,0 +1,9 @@
+
+    Diagnosis Report
+    ----------------
+    Name: test d
+    Address: d
+    Symptoms: aaa
+    Diagnosis Result: benign detected with 72.95% confidence
+    Report Date: 2025-03-12
+    

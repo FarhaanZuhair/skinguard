@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 
 class UserProfile(models.Model):
@@ -21,3 +22,19 @@ class Diagnosis(models.Model):
 
     def __str__(self):
         return f"Diagnosis for {self.first_name} {self.last_name} on {self.report_date}"    
+class SkinDiagnosis(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    address = models.CharField(max_length=250)
+    symptoms = models.TextField()
+    disease_image = models.ImageField(upload_to='disease_images/')
+    report_date = models.DateField(auto_now_add=True)
+    # cid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    # diagnosis_result = models.TextField(blank=True, null=True)
+
+
+
+    def __str__(self):
+        return f"Diagnosis for {self.first_name} {self.last_name} on {self.report_date}"    
+    

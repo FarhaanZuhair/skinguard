@@ -1,0 +1,9 @@
+
+    Diagnosis Report
+    ----------------
+    Name: test tesy
+    Address: sssss
+    Symptoms: ssss
+    Diagnosis Result: malignant detected with 72.22% confidence
+    Report Date: 2025-03-13
+    
