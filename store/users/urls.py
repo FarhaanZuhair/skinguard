@@ -32,7 +32,7 @@ urlpatterns = [
     path('view_diagnosis/<int:pk>/', views.view_diagnosis, name='view_diagnosis'),
     path('skin_diagnose/', views.skin_cancer_diagnose, name='skin_diagnose'),
     path('view_skin_diagnosis/<int:pk>/', views.view_skin_diagnosis, name='view_skin_diagnosis'),
-    path('report_history/', views.reporthistory, name='report_history'),
+    path('report-history/', views.report_history, name='report_history'),
 
 
     ]

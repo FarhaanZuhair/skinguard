@@ -226,26 +226,6 @@
           action="{% url 'edit_profile' details.user.pk %}"
         >
           {% csrf_token %}
-          <label for="first_name">First Name:</label>
-          <input
-            type="text"
-            id="first_name"
-            name="first_name"
-            value="{{ details.user.first_name }}"
-            required
-          />
-
-          <label for="last_name">Last Name:</label>
-          <input
-            type="text"
-            id="last_name"
-            name="last_name"
-            value="{{ details.user.last_name }}"
-            required
-          />
-
-          <label for="bio">Bio:</label>
-          <textarea id="bio" name="bio">{{ details.bio }}</textarea>
 
           <label for="profile_pic">Profile Picture:</label>
           <input type="file" id="profile_pic" name="profile_pic" />

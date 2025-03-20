@@ -18,7 +18,10 @@ class Diagnosis(models.Model):
     address = models.CharField(max_length=250)
     symptoms = models.TextField()
     disease_image = models.ImageField(upload_to='disease_images/')
+    cid = models.CharField(max_length=255, blank=True, null=True)  # Change to CharField
     report_date = models.DateField(auto_now_add=True)
+    diagnosis_result = models.TextField(blank=True, null=True)  # Add this field
+
 
     def __str__(self):
         return f"Diagnosis for {self.first_name} {self.last_name} on {self.report_date}"    
@@ -30,8 +33,8 @@ class SkinDiagnosis(models.Model):
     symptoms = models.TextField()
     disease_image = models.ImageField(upload_to='disease_images/')
     report_date = models.DateField(auto_now_add=True)
-    # cid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    # diagnosis_result = models.TextField(blank=True, null=True)
+    cid = models.CharField(max_length=255, blank=True, null=True)  # Change to CharField
+    diagnosis_result = models.TextField(blank=True, null=True)
 
 
 

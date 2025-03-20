@@ -13,11 +13,47 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from .models import SkinDiagnosis
 import requests
+from django.contrib.auth.decorators import login_required
+from .models import Diagnosis, SkinDiagnosis
+from django.http import JsonResponse
+from users.models import Diagnosis
+from django.shortcuts import render, get_object_or_404
+from users.models import Diagnosis
+
+def search_by_cid(request):
+    query = request.GET.get('cid')
+    diagnosis = None
+    if query:
+        diagnosis = get_object_or_404(Diagnosis, cid=query)
+    return render(request, 'users/search_results.html', {'diagnosis': diagnosis})
+
+def diagnosis_detail_api(request, pk):
+    diagnosis = Diagnosis.objects.get(pk=pk)
+    data = {
+        'id': diagnosis.pk,
+        'first_name': diagnosis.first_name,
+        'last_name': diagnosis.last_name,
+        'cid': str(diagnosis.cid),  # Include the CID
+        'result': diagnosis.diagnosis_result,
+        'report_date': diagnosis.report_date,
+    }
+    return JsonResponse(data)
+
+@login_required
+def report_history(request):
+    # Fetch all reports for the logged-in user
+    diagnosis_reports = Diagnosis.objects.filter(user=request.user)
+    skin_diagnosis_reports = SkinDiagnosis.objects.filter(user=request.user)
+
+    return render(request, 'users/report_history.html', {
+        'diagnosis_reports': diagnosis_reports,
+        'skin_diagnosis_reports': skin_diagnosis_reports,
+    })
 
 
-# Create your views here.
-def reporthistory(request):
-    return render(request,'users/reporthistory.html')
+# # Create your views here.
+# def reporthistory(request):
+#     return render(request,'users/reporthistory.html')
 def logout(request):
     auth_logout(request)
     return redirect('login')
@@ -94,6 +130,8 @@ def diagnose(request):
     return render(request, 'users/diagnose.html', {'form': form})
 
 @login_required
+# Example for view_diagnosis
+@login_required
 def view_diagnosis(request, pk):
     diagnosis = get_object_or_404(Diagnosis, pk=pk)
 
@@ -101,11 +139,25 @@ def view_diagnosis(request, pk):
         # Process the uploaded image
         predicted_class, confidence = YourModel.process_image(diagnosis.disease_image.path)
         diagnosis_result = f"{predicted_class} with {confidence:.2f}% confidence"
+
+        # Generate the report and save it to a file
+        report_path = generate_report(diagnosis, diagnosis_result)
+
+        # Upload the report to IPFS and get CID
+        cid = upload_to_ipfs(report_path)
+        diagnosis.diagnosis_result = diagnosis_result
+        diagnosis.cid = cid  # Assign the IPFS hash to the cid field
+        diagnosis.save()
+
     else:
         diagnosis_result = "No image uploaded"
+        cid = None
 
-    return render(request, 'users/view_diagnosis.html', {'diagnosis': diagnosis, 'diagnosis_result': diagnosis_result})
-
+    return render(request, 'users/view_diagnosis.html', {
+        'diagnosis': diagnosis,
+        'diagnosis_result': diagnosis_result,
+        'cid': cid,
+    })
 @login_required
 def skin_cancer_diagnose(request):
     if request.method == 'POST':
@@ -147,9 +199,9 @@ def view_skin_diagnosis(request, pk):
         # Upload image to IPFS and get CID
         cid = upload_to_ipfs(report_path)
         # Save the CID and diagnosis result to the database
-        # diagnosis.cid = cid
-        # diagnosis.diagnosis_result = diagnosis_result
-        # diagnosis.save()
+        diagnosis.cid = cid
+        diagnosis.diagnosis_result = diagnosis_result
+        diagnosis.save()
 
     else:
         diagnosis_result = "No image uploaded"

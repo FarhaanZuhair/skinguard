@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report History</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f9f9f9;
+        padding: 20px;
+      }
+
+      .report-container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .report {
+        border-bottom: 1px solid #ddd;
+        padding: 10px 0;
+      }
+
+      .report:last-child {
+        border-bottom: none;
+      }
+
+      .report h3 {
+        margin: 0;
+        font-size: 1.2em;
+        color: #1a76d1;
+      }
+
+      .report p {
+        margin: 5px 0;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="report-container">
+      <h2>Monkeypox Diagnoses</h2>
+      {% if diagnosis_reports %} {% for report in diagnosis_reports %}
+      <div class="report">
+        <h3>Report ID: {{ report.pk }}</h3>
+        <p><strong>Date:</strong> {{ report.report_date }}</p>
+        <p><strong>Result:</strong> {{ report.diagnosis_result }}</p>
+        <!-- Use diagnosis_result -->
+        <p>
+          <strong>Image:</strong>
+          <a href="{{ report.disease_image.url }}">View Image</a>
+        </p>
+      </div>
+      {% endfor %} {% else %}
+      <p>No Monkeypox diagnosis reports found.</p>
+      {% endif %}
+
+      <h2>Skin Cancer Diagnoses</h2>
+      {% if skin_diagnosis_reports %} {% for report in skin_diagnosis_reports %}
+      <div class="report">
+        <h3>Report ID: {{ report.pk }}</h3>
+        <p><strong>Date:</strong> {{ report.report_date }}</p>
+        <p><strong>Result:</strong> {{ report.diagnosis_result }}</p>
+        <p><strong>CID:</strong> {{ report.cid }}</p>
+        <!-- Display the CID here -->
+        <p>
+          <strong>Image:</strong>
+          <a href="{{ report.disease_image.url }}">View Image</a>
+        </p>
+      </div>
+      {% endfor %} {% else %}
+      <p>No Skin Cancer diagnosis reports found.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

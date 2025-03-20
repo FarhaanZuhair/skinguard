@@ -1,0 +1,9 @@
+
+    Diagnosis Report
+    ----------------
+    Name: Farhaan Zuhair
+    Address: behind police quarters ,payyanur
+    Symptoms: mmmmmmmmmmmmmmmmmmmmmm
+    Diagnosis Result: Monkeypox detected with 72.97% confidence
+    Report Date: 2025-03-20
+    
