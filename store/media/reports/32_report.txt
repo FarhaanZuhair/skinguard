@@ -1,0 +1,9 @@
+
+    Diagnosis Report
+    ----------------
+    Name: Farhaan Zuhair
+    Address: behind police quarters ,payyanur
+    Symptoms: farhaan
+    Diagnosis Result: benign detected with 58.18% confidence
+    Report Date: 2025-03-20
+    

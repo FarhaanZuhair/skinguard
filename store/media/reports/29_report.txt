@@ -1,0 +1,9 @@
+
+    Diagnosis Report
+    ----------------
+    Name: Farhaan xad
+    Address: sad
+    Symptoms: asadad
+    Diagnosis Result: malignant detected with 73.11% confidence
+    Report Date: 2025-03-20
+    

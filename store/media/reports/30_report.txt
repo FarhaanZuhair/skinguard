@@ -1,0 +1,9 @@
+
+    Diagnosis Report
+    ----------------
+    Name: Farhaan Zuhair
+    Address: behind police quarters ,payyanur
+    Symptoms: aa
+    Diagnosis Result: malignant detected with 55.11% confidence
+    Report Date: 2025-03-20
+    

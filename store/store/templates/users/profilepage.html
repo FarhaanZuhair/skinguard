@@ -188,10 +188,7 @@
           {% endif %}
           <h1>{{ details.user.username }}</h1>
           <p>{{ details.user.email }}</p>
-          <p>
-            <strong>Full Name:</strong> {{ details.user.first_name }} {{
-            details.user.last_name }}
-          </p>
+
           <p><strong>Joined:</strong> {{ details.user.date_joined }}</p>
           <button class="edit-profile-button" onclick="openEditProfile()">
             Edit Profile
@@ -229,10 +226,30 @@
           action="{% url 'edit_profile' details.user.pk %}"
         >
           {% csrf_token %}
+          <label for="first_name">First Name:</label>
+          <input
+            type="text"
+            id="first_name"
+            name="first_name"
+            value="{{ details.user.first_name }}"
+            required
+          />
+
+          <label for="last_name">Last Name:</label>
+          <input
+            type="text"
+            id="last_name"
+            name="last_name"
+            value="{{ details.user.last_name }}"
+            required
+          />
+
           <label for="bio">Bio:</label>
           <textarea id="bio" name="bio">{{ details.bio }}</textarea>
+
           <label for="profile_pic">Profile Picture:</label>
           <input type="file" id="profile_pic" name="profile_pic" />
+
           <button type="submit">Save Changes</button>
         </form>
       </div>
